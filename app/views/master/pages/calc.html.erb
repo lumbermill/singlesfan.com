@@ -1,0 +1,69 @@
+<h1>日報</h1>
+<div class="row">
+<div class="col-md-6">
+<form role="form">
+  <div class="form-group">
+    <label for="sales" class="control-label">売上</label>
+    <input type="number" class="form-control" id="sales" />
+  </div>
+  <div class="radio">
+    <label><input type="radio" name="day" value="holiday"/>土日祝前日</label>
+  </div>
+  <div class="radio">
+    <label><input type="radio" name="day" value="weekday"/>平日前</label>
+  </div>
+  <div class="form-group">
+    <label for="expences" class="control-label">立替経費</label>
+    <input type="number" class="form-control" id="expences" value="0"/>
+  </div>
+  <div class="checkbox">
+    <label><input type="checkbox" id="oneweek" value="true"/>一週間前申請</label>
+  </div>
+  <button type="button" class="btn btn-primary" onclick="calc()">計算</button>
+  <span id="message" class="text-warning"></span>
+  <hr/>
+  <textarea id="answer" class="form-control" rows="10"></textarea>
+</form>
+</div>
+</div>
+<script>
+function calc(){
+  var sales = parseInt($("#sales").val());
+  var expences = parseInt($("#expences").val());
+  var day = $("input[name=day]:checked").val();
+  var oneweek = $("#oneweek:checked").val(); 
+  console.log("sales=" + sales + " day=" + day + " expences="+expences+" oneweek="+oneweek);
+  if(day == undefined){
+    $("#message").text("土日祝前か平日前を選択して下さい。");
+    return;
+  }
+
+  var quota1 = day == "holiday" ? 12000 : 10000;
+  var quota2 = oneweek ? quota1 / 2 : quota1;
+  var reward_rate = day == "holiday" ? 0.2 : 0.3;
+  var reward = 0, f1 = "";
+  if(sales > quota1){
+    reward = (sales - quota1) * reward_rate;
+    f1 = "("+sales+" - "+quota1+") x "+reward_rate+"";
+  }else if(oneweek){
+    if(sales < quota2){
+      sales = quota2;
+    }
+  }else{
+    sales = quota1;
+  }
+  var payment = sales - reward - expences;
+  var f2 = " "+sales+" - "+reward+" - "+expences;
+
+  var text = "";
+  text += "売上："+sales+"円\n";
+  text += "ノルマ："+quota2+"円\n";
+  text += "立替："+expences+"円\n";
+  text += "報酬："+reward+"円（"+f1+"）\n";
+  text += "入金："+payment+"円（"+f2+"）\n";
+  text += "\n";
+  text += "レモン：\nライム：\n牛乳：（賞味期限：）\n"
+
+  $("#answer").val(text);
+}
+</script>

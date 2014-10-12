@@ -1,14 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CbLmlabAsia</title>
+  <title>Singles Fan!<%= @title ? " - "+@title : "" %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <style>
+  body {
+    padding-top: 50px;
+  }
+
+  .navbar{
+    background-color: darkorange;
+    border-color: chocolate;
+    color: black;
+  }
+
+  .nav > li > a:visited{
+    color: #333;
+  }
+
+  .navbar-brand{
+    color: #000 !important;
+  }
+  .nav > li > a{
+    color: #000;
+  }
+
+  .footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 40px;
+    border-top: 1px solid #eee;
+    text-align: center;
+  }
+    </style>
 </head>
 <body>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <% toplink = session[:barkeeper_id] ? for_masters_path : root_path %> 
+      <%= link_to 'Singles Fan!', toplink, :class => 'navbar-brand' %>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><%= link_to 'SINGLESって？', about_path %></li>
+        <li><%= link_to '営業スケジュール', events_path %></li>
+        <li><%= link_to 'メニュー', foodmenu_path %></li>
+        <li><%= link_to 'アクセス', access_path %></li>
+      </ul>
+    </div>
+  </div>
+</div><!-- /navbar -->
+<%= render 'top' if @show_jumbotron %>
+
+<div class="container">
 
 <%= yield %>
 
+</div>
+
+<div class="footer">
+  <p>&copy; lmlab.asia <%= Date.today.year %></p>
+</div>
+<%= render 'google_analytics' %>
 </body>
 </html>

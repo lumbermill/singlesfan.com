@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Origin:</strong>
+  <%= @picture.origin %>
+</p>
+
+<p>
+  <strong>Thumb:</strong>
+  <%= @picture.thumb %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @picture.desc %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @picture.active %>
+</p>
+
+<p>
+  <strong>Posted by:</strong>
+  <%= @picture.posted_by %>
+</p>
+
+<%= link_to 'Edit', edit_picture_path(@picture) %> |
+<%= link_to 'Back', pictures_path %>

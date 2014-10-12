@@ -1,0 +1,31 @@
+<style>
+img.cb-thumbnail{
+  max-width: 80px;
+}
+
+.cb-day{
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+  <table class="table table-striped">
+  <tbody>
+  <% @events.each do |event| %>
+    <tr>
+      <td><img class="cb-thumbnail" src="/thumb/<%= event.picture_id %>" /></td>
+      <td class="cb-day"><%= event.opendate.month %>/<%= event.opendate.day %> <%= %w(日 月 火 水 木 金 土)[event.opendate.wday] %></td>
+      <td class="cb-time"><%= %w(昼 夜 昼夜)[event.opentime] %></td>
+      <td>
+        <span class="lead"><%= event.masters_name %> <%= event.title %></span>
+      <p>
+      <%= event.short_desc %>
+      <% if session[:master_id] then %> <%= link_to '[編集]', edit_event_path(event.id) %><% end %>
+      </p>
+      <% if event.url then %>
+        <p><small><a href="<%= event.url %>" target="_blank"><%= event.url %></a></small></p>
+      <% end %>
+    <!-- Posted by <%= event.master.name %> at <%= event.updated_at %> -->
+      </td>
+    </tr>
+  <% end %>
+</table>

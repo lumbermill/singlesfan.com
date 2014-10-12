@@ -1,0 +1,48 @@
+<% if @events.length == 0 then %>
+<p>本日(<%= Date.today.strftime("%m月%d日") %>)の営業はありません。</p>
+<% end %>
+<% @events.each do |event| %>
+<h3><%= event.opendate.strftime("%Y年%m月%d日") %> <%= event.title %></h3>
+<div class="row">
+  <div class="col-md-6">
+    <style>
+      .table th{
+        white-space: nowrap;
+      }
+    </style>
+    <table class="table">
+    <tbody>
+    <tr>
+      <th>マスター</th><td><%= event.masters_name %></td>
+    </tr>
+    <tr>
+      <th>時間帯</th><td><%= event.opentime_long %><br/>
+        <small>※イベントによって異なる時間帯が設定されることがあります。</small></td>
+    </tr>
+    <tr>
+      <th>タイトル</th><td><%= event.title %></td>
+    </tr>
+    <tr>
+      <th>概要</th><td><%= event.short_desc %></td>
+    </tr>
+    <% if event.url then %>
+    <tr>
+      <th>URL</th><td><a href="<%= event.url %>" target="_blank"><%= event.url %></a></td>
+    </tr>
+    <% end %>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <img src="/img/<%= event.picture_id %>" class="img-rounded" style="max-width: 300px"/>
+  </div>
+</div>
+<% end %>
+<div class="row">
+  <div>
+    <hr/>
+    <p><%= link_to '明日以降のスケジュール', events_path, class: "btn btn-default" %>
+      <%= link_to '開催済みのスケジュール', pasts_path(:p => "0"), class: "btn btn-default" %>
+    </p>
+    <p style="text-align: right"><a href="/login">マスター・管理者向け</a></p>
+  <div>
+</div>

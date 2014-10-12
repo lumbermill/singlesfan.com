@@ -1,0 +1,51 @@
+<style>
+img.cb-thumbnail{
+  max-width: 80px;
+}
+
+.cb-day{
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<% @two_events.each_with_index do |one_events,i| %>
+  <% if @two_dates then %>
+    <h3><%= @two_dates[i].year %>年<%= @two_dates[i].month %>月</h3> 
+  <% end %>
+  <table class="table table-striped">
+  <tbody>
+  <% one_events.each_with_index do |events,d|
+      next if d == 0 || (i == 0 && d < Date.today.day)
+      if events == nil then
+  %>
+    <tr><td><img class="cb-thumbnail" src="closed.png"/></td>
+      <td class="cb-day"><%= @two_dates[i].month %>/<%= d %></td>
+      <td></td>
+      <td class="text-muted">日替わりマスター募集中！</td></tr>
+  <%  else
+        events.each do |event|
+          next if event == nil  
+  %>
+    <tr>
+      <td><img class="cb-thumbnail" src="/thumb/<%= event.picture_id %>" /></td>
+      <td class="cb-day"><%= event.opendate.month %>/<%= event.opendate.day %> <%= %w(日 月 火 水 木 金 土)[event.opendate.wday] %></td>
+      <td class="cb-time"><%= %w(昼 夜 昼夜)[event.opentime] %></td>
+      <td>
+        <span class="lead"><%= event.masters_name %> <%= event.title %></span>
+      <p>
+      <%= event.short_desc %>
+      <% if session[:master_id] then %> <%= link_to '[編集]', edit_event_path(event.id) %><% end %>
+      </p>
+      <% if event.url then %>
+        <p><small><a href="<%= event.url %>" target="_blank"><%= event.url %></a></small></p>
+      <% end %>
+    <!-- Posted by <%= event.master.name %> at <%= event.updated_at %> -->
+      </td>
+  <%  
+      end
+    end
+%>
+    </tr>
+  <% end %>
+</table>
+<% end %>

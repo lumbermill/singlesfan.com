@@ -11,6 +11,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20141012044422) do
+
+  create_table "events", force: true do |t|
+    t.date     "opendate"
+    t.integer  "opentime",     default: 1
+    t.integer  "picture_id"
+    t.integer  "master_id"
+    t.string   "title"
+    t.string   "short_desc"
+    t.text     "long_desc"
+    t.string   "url"
+    t.integer  "submaster_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "masters", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.boolean  "active",          default: true, null: false
+    t.binary   "picture"
+    t.text     "desc"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "masters", ["email"], name: "index_masters_on_email", unique: true, using: :btree
+  add_index "masters", ["name"], name: "index_masters_on_name", unique: true, using: :btree
+
+  create_table "pictures", force: true do |t|
+    t.binary   "origin",     limit: 16777215
+    t.binary   "thumb",      limit: 16777215
+    t.string   "desc"
+    t.boolean  "active",                      default: true, null: false
+    t.integer  "master_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

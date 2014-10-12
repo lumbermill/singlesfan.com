@@ -1,0 +1,46 @@
+<h1>マスターメニュー</h1>
+<% if notice then %>
+<p class="alert alert-info" id="notice"><%= notice %></p>
+<% end %>
+<div class="row">
+  <div class="col-md-6">
+    <p>&nbsp;</p>
+    <ul class="list-group">
+    <li class="list-group-item"><%= link_to '日報計算機', master_calc_path %></li>
+    <li class="list-group-item"><%= link_to '2ヶ月シフト(txt形式)', plain_path,data: { no_turbolink: true } %></li>
+    <li class="list-group-item"><a href="https://www.google.com/analytics/web/?authuser=1#report/visitors-overview/a27637383w87419942p90749163/" target="_blank">アクセス解析(Google analytics)</a></li>
+    <li class="list-group-item"><a href="http://www.freeml.com/5th_singles" target="_blank">メーリングリスト(freeml)</a></li>
+    <li class="list-group-item"><%= link_to 'ログアウト', logout_path %></li>
+    </ul>
+    <% if session[:barkeeper_id] then %>
+    <ul class="list-group">
+      <li class="list-group-item"><%= link_to '管理者メニュー',for_admins_path %></li>
+    </ul>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+  <h3>最近申請されたシフト</h3>
+  <table class="table">
+  <thead>
+  <tr>
+    <th>開催日</th><th>タイトル</th><th>申請日時</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% Event.recents_by_created.limit(10).each do |e| %>
+    <tr>
+      <td><%= e.opendate %></td>
+      <td><%= link_to e.title, event_path(e.id) %></td>
+      <td><%= e.created_at %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <p>追加予定の機能や既知の不具合は以下のサイトで管理しています。お気付きの点があれば、メーリングリスト等でお知らせ下さい。</p>
+    <p><a href="https://github.com/yosei/cb-singles.com" target="_blank">https://github.com/yosei/cb-singles.com</a></p>
+  </div>
+</div>

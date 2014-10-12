@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Opendate:</strong>
+  <%= @event.opendate %>
+</p>
+
+<p>
+  <strong>Opentime:</strong>
+  <%= @event.opentime %>
+</p>
+
+<p>
+  <strong>Master:</strong>
+  <%= @event.master_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @event.title %>
+</p>
+
+<p>
+  <strong>Short desc:</strong>
+  <%= @event.short_desc %>
+</p>
+
+<p>
+  <strong>Long desc:</strong>
+  <%= @event.long_desc %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @event.url %>
+</p>
+
+<p>
+  <strong>Submaster:</strong>
+  <%= @event.submaster_id %>
+</p>
+
+<p>
+  <strong>Posted by:</strong>
+  <%= @event.posted_by %>
+</p>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

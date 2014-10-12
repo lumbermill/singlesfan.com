@@ -1,0 +1,12 @@
+
+<h1>開催済み</h1>
+<p style="text-align: right">
+<%= link_to '営業スケジュール', events_path, class: "btn btn-default" %>
+</p>
+
+<%= render 'pasts' %>
+
+<ul class="pager">
+  <li class="previous disabled"><a href="?p=">&larr; 前のページ</a></li>
+  <li class="next"><a href="?p=">次のページ &rarr;</a></li>
+</ul>

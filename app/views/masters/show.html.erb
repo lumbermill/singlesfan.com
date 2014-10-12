@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @master.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @master.email %>
+</p>
+
+<p>
+  <strong>Password digest:</strong>
+  <%= @master.password_digest %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @master.active %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%= @master.picture %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @master.desc %>
+</p>
+
+<%= link_to 'Edit', edit_master_path(@master) %> |
+<%= link_to 'Back', masters_path %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  origin: 
+  thumb: 
+  desc: MyString
+  active: false
+  posted_by: 1
+
+two:
+  origin: 
+  thumb: 
+  desc: MyString
+  active: false
+  posted_by: 1
