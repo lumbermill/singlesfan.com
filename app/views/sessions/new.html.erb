@@ -7,27 +7,16 @@ form{
 }
 </style>
 <div class="row">
-  <div class="col-md-offset-2 col-md-8">
+  <div class="col-md-offset-4 col-md-4">
     <% if alert then %>
     <p class="alert alert-warning"><%= alert %></p>
     <% end %>
-    <p>ようこそ、Singles Fanの管理ページへ。日報の計算機など、一般マスター向けの機能を利用されたい方は、左側のフォームに合い言葉を入力して下さい。シフトや写真の管理を行う管理者の方は右側のフォームからどうぞ。</p>
+    <p>ようこそ、Singles Fanの管理ページへ。</p>
   </div>
-  <div class="col-md-offset-2 col-md-4">
-  <h3>一般マスター</h3>
-  <%= form_tag session_for_masters_path, role: "form" do %>
-    <div class="form-group">
-      <%= label_tag :password_for_masters, "合い言葉" %><br />
-      <%= text_field_tag :password_for_masters, nil, class: "form-control" %>
-    </div>
-    <div class="actions">
-      <%= submit_tag 'ログイン', class: "btn btn-primary" %> 
-    </div>
-  <% end %>
-  </div>
-  <div class="col-md-4">
-  <h3>管理者</h3>
-  <%= form_tag session_path, role: "form" do %>
+</div>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+  <%= form_tag login_path, role: "form" do %>
     <div class="form-group">
       <%= label_tag :email, "メールアドレス" %><br />
       <%= text_field_tag :email, nil, class: "form-control" %>
@@ -40,5 +29,6 @@ form{
       <%= submit_tag 'ログイン', class: "btn btn-primary" %>
     </div>
   <% end %>
+  <p class="text-muted"><a href="masters/new">[登録申請]</a> <a href="#">[パスワードを忘れた方]</a></p>
   </div>
-  </div>
+</div>

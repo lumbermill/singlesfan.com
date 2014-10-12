@@ -1,5 +1,63 @@
-<h1>New master</h1>
+<div class="row">
+<div class="col-md-offset-3 col-md-6">
+<h1>マスター登録申請</h1>
 
-<%= render 'form' %>
+<% has_error = @master.errors.any? %>
+<%= form_for(@master) do |f| %>
+  <% if has_error %>
+    <div id="error_explanation" class="alert alert-warning">
+      <p>以下のエラーが発生しています：</p>
 
-<%= link_to 'Back', masters_path %>
+      <ul>
+      <% @master.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <p class="alert alert-warning">
+    <a href="http://cb-singles.com">Common Bar SINGLES</a>のマスター講習（説教バー）
+    を受講され、現在有効なマスター資格をお持ちの方のみ申請可能です。ご了承下さい。
+    </p>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, 'マスター名' %><br>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :email, 'メールアドレス' %><br>
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password, 'パスワード' %><br>
+    <%= f.password_field :password, class: "form-control" %>
+    <small>他のウェブサービス等に使用しているものは避けて下さい。</small>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation, 'パスワード(確認)' %><br>
+    <%= f.password_field :password_confirmation, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <input type="checkbox" id="is-master" onchange="toggle_submit()"/>
+    <label for="is-master">私はCommon Bar SINGLESのマスターです。</label>
+  </div> 
+  <div class="actions">
+    <%= f.submit '登録申請をする',id: "submit-button" ,class: "btn btn-primary" %>
+  </div>
+<% end %>
+<script>
+<% if has_error %>
+$("#is-master").prop("checked",true);
+$("#submit-button").prop("disabled",false);
+<% else %>
+$("#is-master").prop("checked",false);
+$("#submit-button").prop("disabled",true);
+<% end %>
+function toggle_submit(){
+  var c = $("#is-master").prop("checked");
+  $("#submit-button").prop("disabled",!c);
+}
+</script>
+</div>
+</div>

@@ -9,7 +9,6 @@ one:
   long_desc: MyText
   url: MyString
   submaster_id: 1
-  posted_by: 1
 
 two:
   opendate: 2014-10-12
@@ -20,4 +19,3 @@ two:
   long_desc: MyText
   url: MyString
   submaster_id: 1
-  posted_by: 1

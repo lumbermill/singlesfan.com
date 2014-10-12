@@ -8,6 +8,14 @@ class Master < ActiveRecord::Base
     length: { within: 4..30 }, presence: true,
     if: :password_required?
   scope :active, lambda { where("active = 't'") }
+  
+  def password=(password_raw)
+    if password_raw.kind_of?(String)
+      self.password_digest = BCrypt::Password.create(password_raw)
+    elsif password_raw.nil?
+      self.password_digest = nil
+    end
+  end
 
   protected
     def password_required?

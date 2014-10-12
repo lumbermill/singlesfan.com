@@ -5,11 +5,9 @@ one:
   thumb: 
   desc: MyString
   active: false
-  posted_by: 1
 
 two:
   origin: 
   thumb: 
   desc: MyString
   active: false
-  posted_by: 1
