@@ -3,10 +3,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    b = Barkeeper.find_by_email(params[:email])
-    if b && b.authenticate(params[:password])
-      sign_in b
-      redirect_to for_admins_path, :notice => "ログインしました。"
+    m = Master.find_by_email(params[:email])
+    if m && m.authenticate(params[:password])
+      session[:master_id] = m.id
+      redirect_to master_root_path, :notice => "ログインしました。"
     else
       flash.now[:alert] = "名前またはパスワードが違います。"
       flash[:notice] = "error"
@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    sign_out
+    reset_session
+    redirect_to root_path, :notice => "ログアウトしました。"
   end
 end
