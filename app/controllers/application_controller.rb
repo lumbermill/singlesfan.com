@@ -2,4 +2,6 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  
+  URL_GITHUB = "https://github.com/yosei/cb.lmlab.asia"
 end

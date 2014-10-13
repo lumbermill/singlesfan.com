@@ -17,7 +17,7 @@
   <% else %>
     <p class="alert alert-warning">
     <a href="http://cb-singles.com">Common Bar SINGLES</a>のマスター講習（説教バー）
-    を受講され、現在有効なマスター資格をお持ちの方のみ申請可能です。ご了承下さい。
+    を受講され、現在有効なマスター資格をお持ちの方のみ申請可能です。マスターになりたい方は、公式サイトをチェックして下さい！
     </p>
   <% end %>
 
@@ -28,15 +28,7 @@
   <div class="form-group">
     <%= f.label :email, 'メールアドレス' %><br>
     <%= f.text_field :email, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :password, 'パスワード' %><br>
-    <%= f.password_field :password, class: "form-control" %>
-    <small>他のウェブサービス等に使用しているものは避けて下さい。</small>
-  </div>
-  <div class="form-group">
-    <%= f.label :password_confirmation, 'パスワード(確認)' %><br>
-    <%= f.password_field :password_confirmation, class: "form-control" %>
+    <small>*.lmlab.asiaドメインからのメールを受信出来るアドレスを指定して下さい。</small>
   </div>
   <div class="form-group">
     <input type="checkbox" id="is-master" onchange="toggle_submit()"/>

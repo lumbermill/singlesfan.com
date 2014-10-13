@@ -1,34 +1,16 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @master.name %>
+<p id="notice">
+	<%= notice %>
 </p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @master.email %>
-</p>
-
-<p>
-  <strong>Password digest:</strong>
-  <%= @master.password_digest %>
-</p>
-
-<p>
-  <strong>Active:</strong>
-  <%= @master.active %>
-</p>
-
-<p>
-  <strong>Picture:</strong>
-  <%= @master.picture %>
-</p>
-
-<p>
-  <strong>Desc:</strong>
-  <%= @master.desc %>
-</p>
-
-<%= link_to 'Edit', edit_master_path(@master) %> |
-<%= link_to 'Back', masters_path %>
+<table class="table">
+	<tbody>
+		<tr>
+			<th>マスター名</th><td> <%= @master.name %> </td>
+		</tr>
+		<tr>
+			<th>登録日</th><td> <%= @master.created_at.strftime("%Y/%m/%d") %> </td>
+		</tr>
+		<tr>
+			<th>自己紹介</th><td> <%= @master.desc %> </td>
+		</tr>
+	</tbody>
+</table>

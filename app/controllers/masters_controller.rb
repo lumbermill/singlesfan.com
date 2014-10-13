@@ -1,5 +1,17 @@
 class MastersController < ApplicationController
   before_action :set_master, only: [:show, :edit, :update, :destroy]
+  
+  PASSWORD_SRC = 'AaBbCcDdEeFfGgHhiJjKkLMmNnPpQrSsTtUuVvWwXxYyZz23456789'
+
+  def reset    
+  end
+
+  def reset_do
+    m = Master.find_by(email: params[:email]);
+    if ! m 
+      render :reset, notice: 'メールアドレスが見つかりません。'
+    end
+  end
 
   # GET /masters
   # GET /masters.json
@@ -25,10 +37,15 @@ class MastersController < ApplicationController
   # POST /masters.json
   def create
     @master = Master.new(master_params)
+    p = PASSWORD_SRC.split(//).shuffle[0,6].join 
+    @master.password = p
+    @master.active = false
 
     respond_to do |format|
       if @master.save
-        format.html { redirect_to @master, notice: 'Master was successfully created.' }
+        # TODO メールを送る
+        Notifications.signup(@master,p).deliver
+        format.html { render :new_do, notice: '登録申請を受け付けました。' }
         format.json { render :show, status: :created, location: @master }
       else
         format.html { render :new }
@@ -69,6 +86,6 @@ class MastersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def master_params
-      params.require(:master).permit(:name, :email, :password_digest, :active, :picture, :desc)
+      params.require(:master).permit(:name, :email)
     end
 end
