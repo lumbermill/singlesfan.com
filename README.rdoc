@@ -1,28 +1,29 @@
 == README
+Ruby on Railsで、Common Bar Singlesというバー（お酒を飲むお店）のウェブシステムを構築する非公式のプロジェクトです。2014年9月にスタートしました。
+このバーは「マスターが日替わり」という、とても変わった仕組みを持っていて、とても魅力のあるイベントが、ユニークなマスターさんによって日々開催されています。
+このバーの魅力をうまくPRできる仕組みが作れたら面白そうだな、という想いが原動力になっています。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+本サイト：
+http://www.cb.lmlab.asia
 
-Things you may want to cover:
+テストサイト:
+http://dev.cb.lmlab.asia
+新機能のテストはここで行います。認証のID、パスワード共に「cb」です。
 
-* Ruby version
+Rubyバージョン: 2.0.0
 
-* System dependencies
+システム環境:
+MacOSX Mavericks (for development)
+CentOS6.5 (for test, production)
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+開発方針:
+些細な指摘から、荒唐無稽な新機能のアイデアまで、あらゆる意見を歓迎します。
+但し、開発リソースには限りがあるので、対応に時間がかかることはあると思います。
+将来的に別の開発・保守陣に完全に引き継ぐことを想定して、可能な限り開発環境と運用環境の構築がシンプルな状態を保ちたいと考えています（GitHubにリソースを公開するのはその一環でもあります）。
+課題はGitHubのIssuesで管理していますので、自由に追加、コメントを付けて下さい。反響が多い、或いは特に具体的な（実装の方法が見えやすい）課題を優先して消化することになると思います。
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+=== 参考URL
+http://cb-singles.com :Common Bar Singlesの公式サイト
+http://rubyonrails.org/ :構築に利用しているフレームワーク
+http://getbootstrap.com/ :（同上）
