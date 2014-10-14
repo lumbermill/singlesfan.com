@@ -3,7 +3,7 @@
 <h1>マスター登録申請</h1>
 
 <% has_error = @master.errors.any? %>
-<%= form_for(@master) do |f| %>
+<%= form_for(@master, url: master_new_path) do |f| %>
   <% if has_error %>
     <div id="error_explanation" class="alert alert-warning">
       <p>以下のエラーが発生しています：</p>

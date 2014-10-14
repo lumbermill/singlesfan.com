@@ -3,7 +3,9 @@ class Master < ActiveRecord::Base
 
   has_many :events
   validates_uniqueness_of :name
-  validates_uniqueness_of :email
+  validates_presence_of :name, message: "マスター名は必須です。"
+  validates_uniqueness_of :email, message: "このアドレスは既に登録されています。"
+  validates_presence_of :email, message: "メールアドレスは必須です。"
   validates :password, confirmation: true,
     length: { within: 4..30 }, presence: true,
     if: :password_required?

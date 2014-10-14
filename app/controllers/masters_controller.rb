@@ -33,9 +33,7 @@ class MastersController < ApplicationController
   def edit
   end
 
-  # POST /masters
-  # POST /masters.json
-  def create
+  def new_do
     @master = Master.new(master_params)
     p = PASSWORD_SRC.split(//).shuffle[0,6].join 
     @master.password = p
@@ -43,7 +41,6 @@ class MastersController < ApplicationController
 
     respond_to do |format|
       if @master.save
-        # TODO メールを送る
         Notifications.signup(@master,p).deliver
         format.html { render :new_do, notice: '登録申請を受け付けました。' }
         format.json { render :show, status: :created, location: @master }

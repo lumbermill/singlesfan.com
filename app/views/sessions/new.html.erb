@@ -29,6 +29,6 @@ form{
       <%= submit_tag 'ログイン', class: "btn btn-primary" %>
     </div>
   <% end %>
-  <p class="text-muted"><a href="masters/new">[登録申請]</a> <a href="reset">[パスワードを忘れた方]</a></p>
+  <p class="text-muted"><%= link_to '[登録申請]', master_new_path %> <%= link_to '[パスワードを忘れた方]',master_reset_path  %></p>
   </div>
 </div>
