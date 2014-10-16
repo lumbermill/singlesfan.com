@@ -1,5 +1,6 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
+  before_action :check_auth, except: [:show_image, :show_thumb]
 
   def show_image
     set_picture
@@ -13,7 +14,7 @@ class PicturesController < ApplicationController
 
   def show_images
     if params[:p].blank? || params[:checked_id].blank?
-      routing_error
+      raise ActionController::RoutingError.new(params[:path])
     end
     @checked_id = params[:checked_id]
     ps = 6
@@ -46,6 +47,7 @@ class PicturesController < ApplicationController
   # POST /pictures.json
   def create
     @picture = Picture.new(picture_params)
+    @picture.thumb = 
 
     respond_to do |format|
       if @picture.save
@@ -90,6 +92,18 @@ class PicturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
-      params.require(:picture).permit(:origin, :thumb, :desc, :active, :posted_by)
+      require 'RMagick'
+      p = params.require(:picture).permit(:origin,:desc)
+      if p[:origin] != nil then
+        p[:origin] = p[:origin].read
+        i = Magick::Image.from_blob(p[:origin])[0]
+        if i.columns > 1024
+          p[:origin] = i.resize(0.5).to_blob
+        end
+        t = i.resize_to_fill(128)
+        p[:thumb] = t.to_blob
+      end
+      p[:master_id] = session[:master_id];
+      return p
     end
 end

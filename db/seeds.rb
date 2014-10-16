@@ -1,14 +1,14 @@
-Master.create(id: 1, name: 'Root', email: 'root@cb-singles.com', password:'secret', password_confirmation:'secret')
-Master.create(name: 'Yosei', email: 'yousei.itou@gmail.com', password:'secret', password_confirmation:'secret')
+Master.create(id: 1, name: 'Root', email: 'root@cb-singles.com', password_digest:'xxxxxxxx')
+
+(1..6).each do |n|
+  o = "#{Rails.root}/db/samples/sample#{n}.jpg"
+  t = "#{Rails.root}/db/samples/sample#{n}-thumb.jpg"
+  Picture.create(origin: File.read(o),thumb: File.read(t))
+end
 
 case Rails.env
 when 'development'
-  (1..5).each do |n|
-    o = "#{Rails.root}/db/samples/sample#{n}.jpg"
-    t = "#{Rails.root}/db/samples/sample#{n}-thumb.jpg"
-    Picture.create(origin: File.read(o),thumb: File.read(t))
-  end
-
+  Master.create(name: 'Yosei', email: 'yousei.itou@gmail.com', password:'secret', password_confirmation:'secret')
   b = Master.create(name: 'マスターA', email: 'foo@bar.com', password:'secret', password_confirmation:'secret')
 
   def d(offset)

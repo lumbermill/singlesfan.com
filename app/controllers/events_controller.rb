@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :check_auth, except: [:index, :plain, :pasts, :show]
 
   # GET /events
   # GET /events.json
@@ -33,6 +34,11 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    @event.master_name = Master.find(session[:master_id]).name
+    @event.picture_id = 2;
+    if params[:d]
+      @event.opendate = params[:d]
+    end
   end
 
   # GET /events/1/edit
@@ -42,11 +48,20 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    master_name = params[:master_name];
+    Rails.logger.info "######################"
+    Rails.logger.info params
     @event = Event.new(event_params)
+    @event.master = Master.find_by(name:master_name )
+    if ! @event.master
+      # Add new master
+      m = Master.create(name: master_name, email: master_name, password_digest: "xxxxxxxxxx");
+      @event.master = m
+    end
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        format.html { redirect_to @event, notice: 'シフトを追加しました。' }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
@@ -60,7 +75,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.html { redirect_to @event, notice: 'シフトを修正しました。' }
         format.json { render :show, status: :ok, location: @event }
       else
         format.html { render :edit }
@@ -87,7 +102,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:opendate, :opentime, :master_id, :title, :short_desc, :long_desc, :url, :submaster_id, :posted_by)
+      params.require(:event).permit(:opendate, :opentime, :master_name, :title, :short_desc, :long_desc, :url, :picture_id, :submaster_id, :posted_by)
     end
 
     def events_on_calendar(d)

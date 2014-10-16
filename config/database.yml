@@ -50,5 +50,4 @@ test:
 production:
   <<: *default
   database: cb_lmlab_asia_production
-  username: cb_lmlab_asia
   password: <%= ENV['CB_LMLAB_ASIA_DATABASE_PASSWORD'] %>

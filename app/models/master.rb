@@ -9,7 +9,8 @@ class Master < ActiveRecord::Base
   validates :password, confirmation: true,
     length: { within: 4..30 }, presence: true,
     if: :password_required?
-  scope :active, lambda { where("active = 't'") }
+      
+  scope :active, lambda { where("active = true") }
   
   def password=(password_raw)
     if password_raw.kind_of?(String)

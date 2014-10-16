@@ -6,6 +6,7 @@ class Event < ActiveRecord::Base
   validates_presence_of :opendate
   validates_presence_of :opentime
   validates_uniqueness_of :opentime, scope: [:opendate]
+  validates_presence_of :master_id
  
   scope :recents, lambda { where("opendate >= ?",Date.today.to_s).order("opendate, opentime") }
   scope :recents_by_created, lambda { order("created_at") }
@@ -19,6 +20,9 @@ class Event < ActiveRecord::Base
     o = p * PAGE_SIZE
     where("opendate < ?",Date.today.to_s).order("opendate DESC,opentime").offset(o).limit(PAGE_SIZE)
   }
+
+  # for new form
+  attr_accessor :master_name
 
   def opendate_short
     d = opendate.day.to_s
@@ -35,6 +39,7 @@ class Event < ActiveRecord::Base
   end
 
   def masters_name
+    return "" if master == nil || master.id == 1
     n = master.name
     if submaster_id then
       n += "&"+Master.find(submaster_id).name

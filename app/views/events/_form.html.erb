@@ -1,8 +1,10 @@
+<div class="row">
+<div class="col-md-6">
+
 <%= form_for(@event) do |f| %>
   <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
+    <div id="error_explanation" class="alert alert-warning">
+      <p><%= @event.errors.count %>つのエラーが発生しています:</p>
       <ul>
       <% @event.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,43 +13,56 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :opendate %><br>
-    <%= f.date_select :opendate %>
+  <div class="form-group">
+    <%= f.label :opendate, "開催日" %>
+    <%= f.date_field :opendate, class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :opentime %><br>
-    <%= f.number_field :opentime %>
+  <div class="form-group">
+    <%= f.label :opentime, "時間帯" %>
+    <label class="checkbox-inline"><%= f.radio_button :opentime, 0 %> 昼 </label>
+    <label class="checkbox-inline"><%= f.radio_button :opentime, 1 %> 夜 </label>
+    <label class="checkbox-inline"><%= f.radio_button :opentime, 2 %> 昼夜 </label>
   </div>
-  <div class="field">
-    <%= f.label :master_id %><br>
-    <%= f.text_field :master_id %>
+  <div class="form-group">
+    <%= f.label :master_name,"マスター" %>
+    <%= text_field_tag 'master_name' ,@event.master_name, class: "form-control",list: "master_name_list" %>
+    <datalist id="master_name_list">
+    	<% Master.all.each do |m| %>
+    	<option value="<%= m.name %>" />
+    	<% end %>
+    </datalist>
+    <%# f.select :master_id, Master.active.collect {|b| [b.name, b.id] },{} , class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+  <div class="form-group">
+    <%= f.label :picture,"写真" %>
+    <div id="pictures"></div>
+    <ul class="pager" style="clear: both">
+      <li><a href="#">前</a></li>
+      <li><a href="#">次</a></li>
+    </ul>
+    <script>
+      $("#pictures").load("/imgs?p=0&checked_id=<%= @event.picture_id || 0 %>");
+    </script>
   </div>
-  <div class="field">
-    <%= f.label :short_desc %><br>
-    <%= f.text_field :short_desc %>
+  <div class="form-group">
+    <%= f.label :title,"タイトル" %>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :long_desc %><br>
-    <%= f.text_area :long_desc %>
+  <div class="form-group">
+    <%= f.label :short_desc,"説明文(?文字以内)" %>
+    <%= f.text_area :short_desc, class: "form-control", rows: "3" %>
   </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
+  <div class="form-group">
+    <%= f.label :submaster_id,"サブマスター（オプション）" %>
+    <%= f.select :submaster_id, Master.active.collect {|b| [b.name, b.id] },{include_blank: true} , class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :submaster_id %><br>
-    <%= f.number_field :submaster_id %>
-  </div>
-  <div class="field">
-    <%= f.label :posted_by %><br>
-    <%= f.number_field :posted_by %>
+  <div class="form-group">
+    <%= f.label :url,"URL（オプション）" %>
+    <%= f.text_field :url, class: "form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "シフトを申請する", class: "btn btn-primary" %>
   </div>
 <% end %>
+</div>
+</div>

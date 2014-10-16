@@ -1,0 +1,27 @@
+<style>
+.img-thumbnail{
+  float: left;
+  margin: 0 12px 12px 0;
+}
+
+.img-thumbnail img{
+  max-width: 128px;
+}
+</style>
+<% 
+@pictures.each do |p|
+  if p.id == @checked_id.to_i then
+    checked = 'checked="checked"'
+  else
+    checked = ''
+  end
+%>
+<figure class="img-thumbnail">
+<img src="/img/<%= p.id %>" alt=""/>
+<figcaption>
+<input id="picture_<%= p.id %>" type="radio" name="event[picture_id]" value="<%= p.id %>" <%= checked %>/>
+<label for="picture_<%= p.id %>"><%= p.id %></label>
+</figcaption>
+</figure>
+
+<% end %>

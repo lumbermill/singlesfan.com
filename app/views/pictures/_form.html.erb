@@ -1,3 +1,5 @@
+<div class="row">
+<div class="col-md-6">
 <%= form_for(@picture) do |f| %>
   <% if @picture.errors.any? %>
     <div id="error_explanation">
@@ -11,27 +13,18 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :origin %><br>
-    <%= f.text_field :origin %>
+  <div class="form-group">
+    <%= f.label :origin, "写真" %>
+    <%= f.file_field :origin, class: "form-control" %>
+    <small>300 ~ 600px程度のJPEG画像</small>
   </div>
-  <div class="field">
-    <%= f.label :thumb %><br>
-    <%= f.text_field :thumb %>
-  </div>
-  <div class="field">
-    <%= f.label :desc %><br>
-    <%= f.text_field :desc %>
-  </div>
-  <div class="field">
-    <%= f.label :active %><br>
-    <%= f.check_box :active %>
-  </div>
-  <div class="field">
-    <%= f.label :posted_by %><br>
-    <%= f.number_field :posted_by %>
+  <div class="form-group">
+    <%= f.label :desc, "メモ（任意）" %>
+    <%= f.text_field :desc, class: "form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit '追加・更新する' %>
   </div>
 <% end %>
+</div>
+</div>

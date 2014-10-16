@@ -21,7 +21,11 @@ img.cb-thumbnail{
     <tr><td><img class="cb-thumbnail" src="closed.png"/></td>
       <td class="cb-day"><%= @two_dates[i].month %>/<%= d %></td>
       <td></td>
-      <td class="text-muted">日替わりマスター募集中！</td></tr>
+      <td class="text-muted">日替わりマスター募集中！
+      	      <% if session[:master_id] then
+      	      		td = "%d-%d-%d" % [@two_dates[i].year,@two_dates[i].month,d]
+      	      	 %> <%= link_to '追加', new_event_path(d:td),class: "btn btn-default btn-xs" %><% end %>
+      	</td></tr>
   <%  else
         events.each do |event|
           next if event == nil  
@@ -34,12 +38,12 @@ img.cb-thumbnail{
         <span class="lead"><%= event.masters_name %> <%= event.title %></span>
       <p>
       <%= event.short_desc %>
-      <% if session[:master_id] then %> <%= link_to '[編集]', edit_event_path(event.id) %><% end %>
+      <% if session[:master_id] then %> <%= link_to '編集', edit_event_path(event.id),class: "btn btn-default btn-xs" %><% end %>
       </p>
       <% if event.url then %>
         <p><small><a href="<%= event.url %>" target="_blank"><%= event.url %></a></small></p>
       <% end %>
-    <!-- Posted by <%= event.master.name %> at <%= event.updated_at %> -->
+    <!-- Posted at <%= event.updated_at %> -->
       </td>
   <%  
       end

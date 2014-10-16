@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :pictures
   resources :events
+  resources :masters
 
   namespace :for_master do
     root 'pages#index'

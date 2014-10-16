@@ -1,49 +1,55 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @event.opendate_short+" "+@event.title %> </h1>
 
-<p>
-  <strong>Opendate:</strong>
-  <%= @event.opendate %>
-</p>
+<% if notice then %>
+<p class="alert alert-info" id="notice"><%= notice %></p>
+<% end %>
 
-<p>
-  <strong>Opentime:</strong>
-  <%= @event.opentime %>
-</p>
+<style>
+table.table th{
+  text-align: right;
+}
+</style>
 
-<p>
-  <strong>Master:</strong>
-  <%= @event.master_id %>
-</p>
+<div class="row">
+	<div class="col-md-6">
+<table class="table">
+<tr>
+  <th>開催日</th>
+  <td><%= @event.opendate %>
+ <%= @event.opentime_short %></td>
+</tr>
+<tr>
+  <th>マスター</th>
+  <td><%= link_to @event.master.name, master_path(@event.master_id) %></td>
+</tr>
+<tr>
+  <th>タイトル</th>
+  <td><%= @event.title %></td>
+</tr>
+<tr>
+  <th>概要</th>
+  <td><%= @event.short_desc %></td>
+</tr>
+<tr>
+  <th>サブマスター</th>
+  <td><%= Master.find(@event.sub_barkeeper_id).name if @event.submaster_id %></td>
+</tr>
+<tr>
+  <th>URL</th>
+  <td><%= @event.url %></td>
+</tr>
+<tr>
+  <th>登録日時</th>
+  <td class="text-muted"><%= @event.created_at %></td>
+</tr>
+</table>
+</div>
+<div class="col-md-6">
+<img src="/img/<%= @event.picture_id %>" alt="" style="max-width: 300px;" class="img-rounded"/>
+</div>
+</div>
+<% if session[:master_id] then %>
+<%= link_to '再編集', edit_event_path(@event),class: "btn btn-default" %>
+<%= link_to 'シフト一覧へ', events_path,class: "btn btn-default" %>
+<% end %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
-
-<p>
-  <strong>Short desc:</strong>
-  <%= @event.short_desc %>
-</p>
-
-<p>
-  <strong>Long desc:</strong>
-  <%= @event.long_desc %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @event.url %>
-</p>
-
-<p>
-  <strong>Submaster:</strong>
-  <%= @event.submaster_id %>
-</p>
-
-<p>
-  <strong>Posted by:</strong>
-  <%= @event.posted_by %>
-</p>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>

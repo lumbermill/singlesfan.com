@@ -1,45 +1,75 @@
 <h1>マスターメニュー</h1>
 <% if notice then %>
-<p class="alert alert-info" id="notice"><%= notice %></p>
+<p class="alert alert-info" id="notice">
+	<%= notice %>
+</p>
 <% end %>
 <div class="row">
-  <div class="col-md-6">
-    <p>こんにちは、<%= @master.name %> さん</p>
-    <ul class="list-group">
-    <li class="list-group-item"><%= link_to 'シフト登録', new_event_path %></li>
-    <li class="list-group-item"><%= link_to '日報計算機', for_master_calc_path %></li>
-    <li class="list-group-item"><%= link_to '2ヶ月シフト(txt形式)', plain_path,data: { no_turbolink: true } %></li>
-    <li class="list-group-item"><%= link_to 'シフト一覧', new_event_path %></li>
-    <li class="list-group-item"><%= link_to 'マスター一覧', barkeepers_path %></li>
-	<li class="list-group-item"><%= link_to 'アップロード済み写真一覧', pictures_path %></li>
-    <li class="list-group-item"><a href="https://www.google.com/analytics/web/?authuser=1#report/visitors-overview/a27637383w87419942p90749163/" target="_blank">アクセス解析(Google analytics)</a></li>
-    <li class="list-group-item"><a href="http://www.freeml.com/5th_singles" target="_blank">メーリングリスト(freeml)</a></li>
-    <li class="list-group-item"><%= link_to 'ログアウト', logout_path %></li>
-    </ul>
-  </div>
-  <div class="col-md-6">
-  <h3>最近申請されたシフト</h3>
-  <table class="table">
-  <thead>
-  <tr>
-    <th>開催日</th><th>タイトル</th><th>申請日時</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% Event.recents_by_created.limit(10).each do |e| %>
-    <tr>
-      <td><%= e.opendate %></td>
-      <td><%= link_to e.title, event_path(e.id) %></td>
-      <td><%= e.created_at %></td>
-    </tr>
-  <% end %>
-  </tbody>
-  </table>
-  </div>
+	<div class="col-md-6">
+		<p>
+			こんにちは、<%= @master.name %> さん
+		</p>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<%= link_to '日報計算機', for_master_calc_path %>
+			</li>
+			<li class="list-group-item">
+				<%= link_to '2ヶ月シフト(txt形式)', plain_path,data: { no_turbolink: true } %>
+			</li>
+			<li class="list-group-item">
+				<%= link_to 'トップページ', root_path %>
+			</li>
+			<li class="list-group-item">
+				<%= link_to 'ログアウト', logout_path %>
+			</li>
+		</ul>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<%= link_to 'シフト一覧', events_path %>
+			</li>
+			<li class="list-group-item">
+				<%= link_to 'マスター一覧', masters_path %>
+			</li>
+			<li class="list-group-item">
+				<%= link_to '写真一覧', pictures_path %>
+			</li>
+		</ul>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<a href="https://www.google.com/analytics/web/?authuser=1#report/visitors-overview/a27637383w87419942p90749163/" target="_blank">アクセス解析(Google analytics)</a>
+			</li>
+			<li class="list-group-item">
+				<a href="http://www.freeml.com/5th_singles" target="_blank">メーリングリスト(freeml)</a>
+			</li>
+		</ul>
+	</div>
+	<div class="col-md-6">
+		<h3>最近申請されたシフト</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>開催日</th><th>タイトル</th><th>申請日時</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% Event.recents_by_created.limit(10).each do |e| %>
+				<tr>
+					<td><%= e.opendate %></td>
+					<td><%= link_to e.title, event_path(e.id) %></td>
+					<td><%= e.created_at %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
 </div>
 <div class="row">
-  <div class="col-md-12">
-    <p>追加予定の機能や既知の不具合は以下のサイトで管理しています。お気付きの点があれば、メーリングリスト等でお知らせ下さい。</p>
-    <p><%= link_to URL_GITHUB, URL_GITHUB %></p>
-  </div>
+	<div class="col-md-12">
+		<ul class="text-muted">
+			<li>シフトの追加は「シフト一覧」から空いている日の「追加」ボタンを押して下さい。</li>
+			<li>追加予定の機能や既知の不具合は以下のサイトで管理しています。お気付きの点があれば、メーリングリスト等でお知らせ下さい。<br/>
+				<%= link_to URL_GITHUB, URL_GITHUB %>
+			</li>
+		</ul>
+	</div>
 </div>
