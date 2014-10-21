@@ -43,21 +43,14 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @event.master_name = @event.master.name
   end
 
   # POST /events
   # POST /events.json
   def create
-    master_name = params[:master_name];
-    Rails.logger.info "######################"
-    Rails.logger.info params
     @event = Event.new(event_params)
-    @event.master = Master.find_by(name:master_name )
-    if ! @event.master
-      # Add new master
-      m = Master.create(name: master_name, email: master_name, password_digest: "xxxxxxxxxx");
-      @event.master = m
-    end
+    @event.master = master_by_name(params[:master_name])
 
     respond_to do |format|
       if @event.save
@@ -75,8 +68,14 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: 'シフトを修正しました。' }
-        format.json { render :show, status: :ok, location: @event }
+        @event.master = master_by_name(params[:master_name])
+        if @event.save
+          format.html { redirect_to @event, notice: 'シフトを修正しました。' }
+          format.json { render :show, status: :ok, location: @event }
+        else
+          format.html { render :edit }
+          format.json { render json: @event.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :edit }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -105,6 +104,16 @@ class EventsController < ApplicationController
       params.require(:event).permit(:opendate, :opentime, :master_name, :title, :short_desc, :long_desc, :url, :picture_id, :submaster_id, :posted_by)
     end
 
+    def master_by_name(n)
+      Rails.logger.debug "New master: "+n
+      m = Master.find_by(name: n)
+      if !m
+        # Add new master
+        m = Master.create(name: n, email: n, password: PASSWORD_NULL);
+      end      
+      return m
+    end
+
     def events_on_calendar(d)
       es = Event.monthly(d)
       events_array = []
@@ -123,7 +132,7 @@ class EventsController < ApplicationController
     def plain_of_month(d)
       txt = d.month.to_s+"月度\n\n"
       events = Event.monthly(d)
-      # todo: have to rewrite!!
+      # todo: have to rewrite!! ..why?
       events_array = []
       events.each do |e|
         events_array[e.opendate.day] = e

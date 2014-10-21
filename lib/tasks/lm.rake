@@ -25,6 +25,9 @@ namespace :lm do
     `rsync -avz --delete --exclude "tmp" --exclude "log" --exclude ".git" #{path} #{host}:/opt/#{host}/`
     puts "Compiling assets.."
     `ssh #{host} "cd /opt/#{host} && rake assets:precompile RAILS_ENV=production"`
+    puts "Adjusting permissions.."
+    `ssh #{host} "cd /opt/#{host} && chown -R nobody:nobody *"`
+    `ssh #{host} "cd /opt/#{host} && chmod +r public/assets/*"`
   end
 
 end

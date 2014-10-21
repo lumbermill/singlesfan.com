@@ -35,7 +35,8 @@ class MastersController < ApplicationController
   end
 
   def new_do
-    @master = Master.new(master_params)
+    @master = Master.find_by(name: master_params[:name]) || Master.new(master_params)
+    @master.email = master_params[:email]
     p = PASSWORD_SRC.split(//).shuffle[0,6].join 
     @master.password = p
     @master.active = false
@@ -43,6 +44,8 @@ class MastersController < ApplicationController
     respond_to do |format|
       if @master.save
         Notifications.signup(@master,p).deliver
+        Rails.logger.debug "Mail:#{@master.email} Password:#{p}"
+        Rails.logger.debug "You need to exec Member.find(#{@master.id}) on console."
         format.html { render :new_do, notice: '登録申請を受け付けました。' }
         format.json { render :show, status: :created, location: @master }
       else

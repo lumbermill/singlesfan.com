@@ -35,7 +35,7 @@ img.cb-thumbnail{
       <td class="cb-day"><%= event.opendate.month %>/<%= event.opendate.day %> <%= %w(日 月 火 水 木 金 土)[event.opendate.wday] %></td>
       <td class="cb-time"><%= %w(昼 夜 昼夜)[event.opentime] %></td>
       <td>
-        <span class="lead"><%= event.masters_name %> <%= event.title %></span>
+        <span class="lead"><%= event.masters_name %>「<%= event.title %>」</span>
       <p>
       <%= event.short_desc %>
       <% if session[:master_id] then %> <%= link_to '編集', edit_event_path(event.id),class: "btn btn-default btn-xs" %><% end %>
