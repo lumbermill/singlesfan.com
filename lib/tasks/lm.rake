@@ -28,6 +28,9 @@ namespace :lm do
     puts "Adjusting permissions.."
     `ssh #{host} "cd /opt/#{host} && chown -R nobody:nobody *"`
     `ssh #{host} "cd /opt/#{host} && chmod +r public/assets/*"`
+
+    puts "Restarting web server.."
+    `ssh #{host} "service httpd restart"`
   end
 
 end

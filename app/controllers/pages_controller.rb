@@ -5,11 +5,14 @@ class PagesController < ApplicationController
   end
 
   def about
+    @title = "SINGLESって？"
   end
 
   def foodmenu
+    @title = "メニュー"
   end
 
   def access
+    @title = "アクセス"
   end
 end

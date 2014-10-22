@@ -5,6 +5,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+    @title = '営業スケジュール'
     d1 = Date.today
     d2 = d1 + 1.months
     @two_dates = [d1,d2]
@@ -22,6 +23,7 @@ class EventsController < ApplicationController
   end
 
   def pasts
+    @title = '開催済み'
     @events = Event.pasts(params[:p])
   end
 
