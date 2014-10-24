@@ -5,6 +5,8 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="description" content="大阪梅田にある「日替わりのマスター」のバーを紹介するサイトです。" />
+  <meta name="keywords" content="大阪,梅田,バー,飲み会,イベント,コモンバー,シングルズ,COMMON BAR SINGLES,ファン" />
   <style>
   body {
     padding-top: 50px;
@@ -17,6 +19,10 @@
   }
 
   .nav > li > a:visited{
+    color: #333;
+  }
+
+  .navibar-nav > li > a:visited{
     color: #333;
   }
 
@@ -68,7 +74,7 @@
 </div>
 
 <div class="footer">
-  <p>&copy; lmlab.asia <%= Date.today.year %></p>
+  <p>&copy; singlesfan.com <%= Date.today.year %></p>
 </div>
 <%= render 'google_analytics' %>
 </body>
