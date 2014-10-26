@@ -28,7 +28,7 @@
   <div class="form-group">
     <%= f.label :email, 'メールアドレス' %><br>
     <%= f.text_field :email, class: "form-control" %>
-    <small>*.lmlab.asiaドメインからのメールを受信出来るアドレスを指定して下さい。</small>
+    <small>*.<%= DOMAIN %>ドメインからのメールを受信出来るアドレスを指定して下さい。</small>
   </div>
   <div class="form-group">
     <input type="checkbox" id="is-master" onchange="toggle_submit()"/>

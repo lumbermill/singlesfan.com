@@ -11,15 +11,17 @@ namespace :lm do
 
   desc "Rsync to dev."
   task :dev do
-    host = "dev.cb.lmlab.asia"
+    require './config/initializers/constants.rb'
+    host = "dev."+DOMAIN
     path = "./"
     puts "Sending files to #{host}.."
     `rsync -avz --delete --exclude "tmp" --exclude "log" --exclude ".git" #{path} #{host}:/opt/#{host}/`
   end
   
-  desc "Rsync to dev."
+  desc "Rsync to www."
   task :www do
-    host = "www.cb.lmlab.asia"
+    require './config/initializers/constants.rb'
+    host = "www."+DOMAIN
     path = "./"
     puts "Sending files to #{host}.."
     `rsync -avz --delete --exclude "tmp" --exclude "log" --exclude ".git" #{path} #{host}:/opt/#{host}/`

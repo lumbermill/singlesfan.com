@@ -4,17 +4,18 @@ Ruby on Railsで、Common Bar Singlesというバー（お酒を飲むお店）�
 このバーの魅力をうまくPRできる仕組みが作れたら面白そうだな、という想いが原動力になっています。
 
 本サイト：
-http://www.cb.lmlab.asia
+http://www.singlesfan.com
 
 テストサイト:
-http://dev.cb.lmlab.asia
+http://dev.singlesfan.com
+
 新機能のテストはここで行います。認証のID、パスワード共に「cb」です。
 
 Rubyバージョン: 2.0.0
 
 システム環境:
-MacOSX Mavericks (for development)
-CentOS6.5 (for test, production)
+- MacOSX Mavericks (for development)
+- CentOS6.5 (for test, production)
 
 開発方針:
 些細な指摘から、荒唐無稽な新機能のアイデアまで、あらゆる意見を歓迎します。
@@ -24,6 +25,6 @@ CentOS6.5 (for test, production)
 
 
 === 参考URL
-http://cb-singles.com :Common Bar Singlesの公式サイト
-http://rubyonrails.org/ :構築に利用しているフレームワーク
-http://getbootstrap.com/ :（同上）
+- http://cb-singles.com :Common Bar Singlesの公式サイト
+- http://rubyonrails.org/ :構築に利用しているフレームワーク
+- http://getbootstrap.com/ :（同上）

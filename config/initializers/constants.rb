@@ -1,1 +1,2 @@
-URL_GITHUB = "https://github.com/yosei/cb.lmlab.asia"
+DOMAIN = "singlesfan.com"
+URL_GITHUB = "https://github.com/yosei/singlesfan.com"

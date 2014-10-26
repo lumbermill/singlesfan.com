@@ -1,5 +1,5 @@
 class Notifications < ActionMailer::Base
-  default from: "Singles Fan <noreply@www.cb.lmlab.asia>"
+  default from: "Singles Fan <noreply@"+DOMAIN+">"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -9,7 +9,7 @@ class Notifications < ActionMailer::Base
   def signup(master,password)
     @name = master.name
     @password = password
-    @url = "http://www.cb.lmlab.asia/login"
+    @url = "http://www."+DOMAIN+"/login"
     if Rails.env == "development"
       @url.sub!("www.","dev.")
     end
@@ -25,7 +25,7 @@ class Notifications < ActionMailer::Base
   def reset_password(master,password)
     @name = ""
     @password = password
-    @url = "http://www.cb.lmlab.asia/login"
+    @url = "http://www."+DOMAIN+"/login"
     if Rails.env == "development"
       @url.sub!("www.","dev.")
     end
