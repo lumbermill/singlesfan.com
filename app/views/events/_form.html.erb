@@ -37,11 +37,17 @@
     <%= f.label :picture,"写真" %>
     <div id="pictures"></div>
     <ul class="pager" style="clear: both">
-      <li><a href="#">前</a></li>
-      <li><a href="#">次</a></li>
+      <li><a href="javascript: void(0)" onclick="update_imgs(-1)">前</a></li>
+      <li><a href="javascript: void(0)" onclick="update_imgs(1)">次</a></li>
     </ul>
     <script>
-      $("#pictures").load("/imgs?p=0&checked_id=<%= @event.picture_id || 0 %>");
+      var current_page = 0;
+      function update_imgs(direction){
+      	current_page += direction;
+      	if(current_page < 0) current_page = 0;
+	    $("#pictures").load("/imgs?p="+current_page+"&checked_id=<%= @event.picture_id || 0 %>");
+      }
+      update_imgs(0);
     </script>
   </div>
   <div class="form-group">

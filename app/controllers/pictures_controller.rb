@@ -18,7 +18,7 @@ class PicturesController < ApplicationController
     end
     @checked_id = params[:checked_id]
     ps = 6
-    o = params[:p] * ps
+    o = params[:p].to_i * ps
     @pictures = Picture.active.offset(o).limit(ps)
     render :action => 'show_images', :layout => false
   end
