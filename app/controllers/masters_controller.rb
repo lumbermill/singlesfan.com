@@ -23,6 +23,8 @@ class MastersController < ApplicationController
   # GET /masters/1
   # GET /masters/1.json
   def show
+     b = (Date.today - 2.months).to_s # 1 month for future
+     @count_in3months = @master.events.where("opendate > '#{b}'").count
   end
 
   # GET /masters/new
@@ -60,7 +62,7 @@ class MastersController < ApplicationController
   def update
     respond_to do |format|
       if @master.update(master_params)
-        format.html { redirect_to @master, notice: 'Master was successfully updated.' }
+        format.html { redirect_to @master, notice: 'マスター情報を更新しました。' }
         format.json { render :show, status: :ok, location: @master }
       else
         format.html { render :edit }
@@ -74,8 +76,17 @@ class MastersController < ApplicationController
   def destroy
     @master.destroy
     respond_to do |format|
-      format.html { redirect_to masters_url, notice: 'Master was successfully destroyed.' }
+      format.html { redirect_to masters_url, notice: 'マスターを削除しました。' }
       format.json { head :no_content }
+    end
+  end
+
+  def show_picture
+    set_master
+    if @master.picture
+      send_data @master.picture, :type => 'image/jpeg', :disposition => "inline"
+    else
+      raise ActionController::RoutingError.new('Picture of '+@master.name+"' not found")
     end
   end
 
@@ -87,6 +98,16 @@ class MastersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def master_params
-      params.require(:master).permit(:name, :email)
+      p = params.require(:master).permit(:name, :email, :picture, :desc, :broken_dishes)
+      require 'RMagick'
+      if p[:picture] != nil then
+        i = Magick::Image.from_blob(p[:picture].read)[0]
+        if i.columns > 400
+          p[:picture] = i.resize_to_fill(400).to_blob
+        else
+          p[:picture] = i.to_blob
+        end
+      end
+      return p
     end
 end

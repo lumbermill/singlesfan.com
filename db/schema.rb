@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141012044422) do
+ActiveRecord::Schema.define(version: 20141026121212) do
 
   create_table "events", force: true do |t|
     t.date     "opendate"
@@ -31,11 +31,12 @@ ActiveRecord::Schema.define(version: 20141012044422) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.boolean  "active",          default: true, null: false
-    t.binary   "picture"
+    t.boolean  "active",                           default: true, null: false
+    t.binary   "picture",         limit: 16777215
     t.text     "desc"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "broken_dishes",                    default: 0
   end
 
   add_index "masters", ["email"], name: "index_masters_on_email", unique: true, using: :btree

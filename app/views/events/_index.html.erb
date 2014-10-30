@@ -6,6 +6,7 @@ img.cb-thumbnail{
 .cb-day{
   font-size: 18px;
   text-align: center;
+  white-space: nowrap;
 }
 </style>
 <% @two_events.each_with_index do |one_events,i| %>
@@ -32,10 +33,10 @@ img.cb-thumbnail{
   %>
     <tr>
       <td><img class="cb-thumbnail" src="/thumb/<%= event.picture_id %>" /></td>
-      <td class="cb-day"><%= event.opendate.month %>/<%= event.opendate.day %> <%= %w(日 月 火 水 木 金 土)[event.opendate.wday] %></td>
-      <td class="cb-time"><%= %w(昼 夜 昼夜)[event.opentime] %></td>
+      <td class="cb-day"><%= event.opendate.month %>/<%= event.opendate_short %></td>
+      <td class="cb-time"><%= event.opentime_short %></td>
       <td>
-        <span class="lead"><%= event.masters_name %>「<%= event.title %>」</span>
+        <span class="lead"><%= event.masters_name(true) %>「<%= event.title %>」</span>
       <p>
       <%= event.short_desc %>
       <% if session[:master_id] then %> <%= link_to '編集', edit_event_path(event.id),class: "btn btn-default btn-xs" %><% end %>

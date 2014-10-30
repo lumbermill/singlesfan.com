@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'master/new' => 'masters#new'
   post 'master/new' => 'masters#new_do'
 
+  get 'masters/:id/picture' => 'masters#show_picture'
   get 'img/:id' => 'pictures#show_image'
   get 'thumb/:id' => 'pictures#show_thumb'
   get 'imgs' => 'pictures#show_images'

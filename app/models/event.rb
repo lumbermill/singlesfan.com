@@ -38,11 +38,24 @@ class Event < ActiveRecord::Base
     opentime_short + " (" +%w(13:00-18:00 19:30-23:00 13:00-23:00)[opentime] + ")"
   end
 
-  def masters_name
+  def masters_name(link=false)
     return "" if master == nil || master.id == 1
-    n = master.name
+    if link
+      n = ("<a href='masters/"+master.id.to_s+"'>").html_safe
+      n += master.name
+      n += "</a>".html_safe
+    else
+      n = master.name
+    end
     if submaster_id then
-      n += "&"+Master.find(submaster_id).name
+      n += "&"
+      if link
+        n += ("<a href='masters/"+submaster_id.to_s+"'>").html_safe
+        n += Master.find(submaster_id).name
+        n += "</a>".html_safe
+      else
+        n += Master.find(submaster_id).name
+      end
     end
     return n
   end
