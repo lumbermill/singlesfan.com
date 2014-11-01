@@ -25,6 +25,7 @@ class MastersController < ApplicationController
   def show
      b = (Date.today - 2.months).to_s # 1 month for future
      @count_in3months = @master.events.where("opendate > '#{b}'").count
+     @title = "「"+@master.name+"」"
   end
 
   # GET /masters/new
