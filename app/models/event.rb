@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
   validates_presence_of :master_id
  
   scope :recents, lambda { where("opendate >= ?",Date.today.to_s).order("opendate, opentime") }
-  scope :recents_by_created, lambda { order("created_at") }
+  scope :recents_by_created, lambda { order("created_at DESC") }
   scope :monthly, lambda { |d| 
     b = d.beginning_of_month
     e = d.end_of_month
@@ -30,8 +30,20 @@ class Event < ActiveRecord::Base
     d+w
   end
 
-  def opentime_short
-    %w(昼 夜 昼夜)[opentime]
+  def opentime_short(html=true)
+    l = %w(昼 夜 昼夜)[opentime]
+    return l unless html
+    if opentime == 0 then
+      i = ActionController::Base.helpers.image_tag("sun.png",size: "16x16", title: l)
+    elsif opentime == 1 then
+      i = ActionController::Base.helpers.image_tag("moon.png",size: "16x16", title: l)
+    elsif opentime == 2 then
+      i = ActionController::Base.helpers.image_tag("sun.png",size: "16x16", title: l)
+      i += ActionController::Base.helpers.image_tag("moon.png",size: "16x16", title: l)
+    end
+    h = i
+    
+    return h.html_safe
   end
 
   def opentime_long
