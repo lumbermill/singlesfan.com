@@ -41,11 +41,15 @@ class EventsController < ApplicationController
     if params[:d]
       @event.opendate = params[:d]
     end
+    @tweet = true
+    @submit_text = 'シフトを申請する'
   end
 
   # GET /events/1/edit
   def edit
     @event.master_name = @event.master.name
+    @tweet = false
+    @submit_text = 'シフトを更新する'
   end
 
   # POST /events
@@ -56,6 +60,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        tweet(@event) if params[:tweet]
         format.html { redirect_to @event, notice: 'シフトを追加しました。' }
         format.json { render :show, status: :created, location: @event }
       else
@@ -72,6 +77,7 @@ class EventsController < ApplicationController
       if @event.update(event_params)
         @event.master = master_by_name(params[:master_name])
         if @event.save
+          tweet(@event) if params[:tweet]
           format.html { redirect_to @event, notice: 'シフトを修正しました。' }
           format.json { render :show, status: :ok, location: @event }
         else
@@ -96,6 +102,21 @@ class EventsController < ApplicationController
   end
 
   private
+    def tweet(event)
+      require 'twitter'
+      tc = Twitter::REST::Client.new do |c|
+        c.consumer_key = ENV['TWITTER_CONSUMER_KEY']
+        c.consumer_secret = ENV['TWITTER_CONSUMER_SECRET']
+        c.access_token = ENV['TWITTER_ACCESS_TOKEN']
+        c.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
+      end
+      
+      # 11月5日 Yosei「英語勉強中」:あいうえお。
+      date = event.opendate.month.to_s+"/"+event.opendate_short+event.opentime_short(false)
+      url = 'http://singlesfan.com/events/%d' % [event.id]
+      tc.update date+' '+event.masters_name+'「'+event.title+'」:'+event.short_desc+' '+url
+    end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
