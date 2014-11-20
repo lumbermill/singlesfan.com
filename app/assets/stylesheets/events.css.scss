@@ -1,3 +1,13 @@
 // Place all the styles related to the events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+div#socials{
+  margin-top: 12px;
+  height: 20px;
+}
+
+/* Facebookのボタンだけどうしてもずれるので… */
+.fb_iframe_widget{
+  top: -4px;
+}

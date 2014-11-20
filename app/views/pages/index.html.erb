@@ -13,27 +13,32 @@
     <table class="table">
     <tbody>
     <tr>
-      <th>マスター</th><td><%= event.masters_name(true) %></td>
+      <th>マスター</th><td><%= event.masters_name(true) %></td><td rowspan="3">
+	    <img src="/img/<%= event.picture_id %>" class="img-rounded" style="max-width: 240px; float: right;"/>
+    	</td>  	
+    </tr>
+    <tr>
+      <th>タイトル</th><td><%= event.title_(true) %></td>
     </tr>
     <tr>
       <th>時間帯</th><td><%= event.opentime_long %><br/>
         <small>※イベントによって異なる時間帯が設定されることがあります。</small></td>
     </tr>
     <tr>
-      <th>タイトル</th><td><%= event.title %></td>
-    </tr>
-    <tr>
-      <th>概要</th><td><%= event.short_desc %></td>
+      <th>概要</th><td colspan="2"><%= event.short_desc %></td>
     </tr>
     <% if event.url then %>
     <tr>
-      <th>URL</th><td><a href="<%= event.url %>" target="_blank"><%= event.url %></a></td>
+      <th>URL</th><td colspan="2"><a href="<%= event.url %>" target="_blank"><%= event.url %></a></td>
     </tr>
     <% end %>
     </table>
   </div>
   <div class="col-md-6">
-    <img src="/img/<%= event.picture_id %>" class="img-rounded" style="max-width: 300px"/>
+    <!-- twitter -->
+	<a class="twitter-timeline" href="https://twitter.com/singlesfan" data-widget-id="535251453288652803">Tweets by @singlesfan</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>    
+    <!-- /twitter -->
   </div>
 </div>
 <% end %>

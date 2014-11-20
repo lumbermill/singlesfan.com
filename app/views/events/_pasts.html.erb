@@ -16,7 +16,7 @@ img.cb-thumbnail{
       <td class="cb-day"><%= event.opendate.month %>/<%= event.opendate_short %></td>
       <td class="cb-time"><%= event.opentime_short %></td>
       <td>
-        <span class="lead"><%= event.masters_name(true) %> 「<%= event.title %>」</span>
+        <span class="lead"><%= event.masters_name(true) %> 「<%= event.title_(true) %>」</span>
       <p>
       <%= event.short_desc %>
       <% if session[:master_id] then %> <%= link_to '[編集]', edit_event_path(event.id) %><% end %>

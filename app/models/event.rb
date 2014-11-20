@@ -50,6 +50,15 @@ class Event < ActiveRecord::Base
     opentime_short + " (" +%w(13:00-18:00 19:30-23:00 13:00-23:00)[opentime] + ")"
   end
 
+  def title_(link=false)
+    if link
+      n = "<a href='events/"+id.to_s+"'>"+title+"</a>"
+      return n.html_safe
+    else
+      return title
+    end
+  end
+
   def masters_name(link=false)
     return "" if master == nil || master.id == 1
     if link

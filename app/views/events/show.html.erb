@@ -47,8 +47,12 @@ table.table th{
 <div class="col-md-6">
 	<img src="/img/<%= @event.picture_id %>" alt="" style="max-width: 300px;" class="img-rounded"/>
 	<div id="socials">
-		<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-		TODO Twitter
+		<!-- facebook -->
+		<div class="fb-like" data-href="http://www.singlesfan.com/events/<%= @event.id %>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+		&nbsp;
+		<!-- twitter -->
+		<a class="twitter-share-button" href="https://twitter.com/share">Tweet</a>
+		<script type="text/javascript">window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));</script>
 	</div>
 </div>
 </div>

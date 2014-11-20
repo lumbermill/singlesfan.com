@@ -31,6 +31,8 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+     @title = "「"+@event.title+"」"
+     @meta_description = @event.short_desc
   end
 
   # GET /events/new
