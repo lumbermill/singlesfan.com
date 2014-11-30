@@ -1,8 +1,6 @@
 <% if @events.length == 0 then %>
 <p>本日(<%= Date.today.strftime("%m月%d日") %>)の営業はありません。</p>
 <% end %>
-<% @events.each do |event| %>
-<h3><%= event.opendate.strftime("%Y年%m月%d日") %> <%= event.title %></h3>
 <div class="row">
   <div class="col-md-6">
     <style>
@@ -10,6 +8,8 @@
         white-space: nowrap;
       }
     </style>
+	<% @events.each do |event| %>
+	<h3><%= event.opendate.strftime("%Y年%m月%d日") %> <%= event.title %></h3>
     <table class="table">
     <tbody>
     <tr>
@@ -33,6 +33,7 @@
     </tr>
     <% end %>
     </table>
+  <% end %>
   </div>
   <div class="col-md-6">
     <!-- twitter -->
@@ -41,7 +42,6 @@
     <!-- /twitter -->
   </div>
 </div>
-<% end %>
 <div class="row">
   <div>
     <hr/>
