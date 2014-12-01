@@ -99,7 +99,7 @@ class MastersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def master_params
-      p = params.require(:master).permit(:name, :email, :picture, :desc, :broken_dishes)
+      p = params.require(:master).permit(:name, :email, :picture, :desc, :broken_dishes, :job, :url, :id_facebook, :id_mixi, :id_twitter)
       require 'RMagick'
       if p[:picture] != nil then
         i = Magick::Image.from_blob(p[:picture].read)[0]

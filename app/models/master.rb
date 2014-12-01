@@ -9,7 +9,10 @@ class Master < ActiveRecord::Base
   validates :password, confirmation: true,
     length: { within: 4..30 }, presence: true,
     if: :password_required?
-      
+  validates :url, format: {with: URI.regexp,    message: "URLが正しくありません。"},
+    if: lambda{ |m| m.url.present? }
+  
+   
   scope :active, lambda { where("active = true") }
   
   def password=(password_raw)

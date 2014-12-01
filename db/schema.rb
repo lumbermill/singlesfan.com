@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141026121212) do
+ActiveRecord::Schema.define(version: 20141201074153) do
 
   create_table "events", force: true do |t|
     t.date     "opendate"
@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(version: 20141026121212) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "broken_dishes",                    default: 0
+    t.string   "job"
+    t.string   "url"
+    t.string   "id_facebook"
+    t.string   "id_mixi"
+    t.string   "id_twitter"
   end
 
   add_index "masters", ["email"], name: "index_masters_on_email", unique: true, using: :btree

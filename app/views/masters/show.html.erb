@@ -7,19 +7,17 @@
 		<table class="table">
 			<tbody>
 				<tr>
-					<td rowspan="3">
-						<% if @master.picture %>
-						<img src="/masters/<%= @master.id %>/picture" class="img-rounded" style="max-width: 120px"/>
-						<% else %>
-						<img src="../master.png" class="img-rounded" style="max-width: 120px"/>
-						<% end %> </td>
+					<td rowspan="3"> <% if @master.picture %> <img src="/masters/<%= @master.id %>/picture" class="img-rounded" style="max-width: 120px"/> <% else %> <img src="../master.png" class="img-rounded" style="max-width: 120px"/> <% end %> </td>
 					<th style="white-space: nowrap">マスター名</th><td> <%= @master.name %> </td>
 				</tr>
 				<tr>
 					<th>登録日</th><td> <%= @master.created_at.strftime("%Y/%m/%d") %> </td>
 				</tr>
 				<tr>
-					<th>自己紹介</th><td> <%= @master.desc %> </td>
+					<th>真の姿</th><td> <%= @master.job %> </td>
+				</tr>
+				<tr>
+					<th colspan="2">自己紹介</th><td> <%= @master.desc %> </td>
 				</tr>
 				<tr>
 					<th colspan="2">シフト申請数（直近3ヶ月）</th><td><%= @count_in3months %></td>
@@ -29,6 +27,19 @@
 				</tr>
 				<tr>
 					<th colspan="2">割ったお皿の数</th><td colspan="2"><%= @master.broken_dishes %></td>
+				</tr>
+				<tr>
+					<th colspan="2">リンク</th><td colspan="2"><%= link_to @master.url,@master.url,target: "_blank" %>
+					<br/>
+					<br/>
+					<%
+ f = image_tag "facebook.png",width: "24px"
+            m = image_tag "mixi.png",width: "24px"
+            t = image_tag "twitter.png",width: "24px"
+%>
+					<%= link_to f, "https://www.facebook.com/"+@master.id_facebook,target: "_blank" if @master.id_facebook %>
+					<%= link_to m, "http://mixi.jp/show_friend.pl?id="+@master.id_mixi,target: "_blank" if @master.id_mixi %>
+					<%= link_to t, "https://twitter.com/"+@master.id_twitter,target: "_blank" if @master.id_twitter %> </td>
 				</tr>
 			</tbody>
 		</table>
@@ -40,9 +51,9 @@
 				<% @master.events.order("opendate DESC").limit(5).each do |event| %>
 				<tr>
 					<td> <%= event.opendate.month %>/<%= event.opendate_short %></td><td> <%= event.opentime_short %></td>
-					<td>「<%= event.title %>」<br/>
-						<%= event.short_desc %>
-					</td>
+					<td>「<%= event.title %>」
+					<br/>
+					<%= event.short_desc %> </td>
 				</tr>
 				<% end %>
 			</tbody>
@@ -52,5 +63,9 @@
 		<p>TODO</p>
 		-->
 		<small>* 通算数は <%= Event.order("opendate").first.opendate.strftime("%Y/%m/%d") %> 以降の数値です。</small>
+	</div>
+	<div class="col-md-6">
+		<br/><br/><br/>
+		<% if session[:master_id] then %> <%= link_to '編集する', edit_master_path(@master.id),class: "btn btn-default" %><% end %>
 	</div>
 </div>
