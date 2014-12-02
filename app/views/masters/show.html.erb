@@ -29,7 +29,7 @@
 					<th colspan="2">割ったお皿の数</th><td colspan="2"><%= @master.broken_dishes %></td>
 				</tr>
 				<tr>
-					<th colspan="2">リンク</th><td colspan="2"><%= link_to @master.url,@master.url,target: "_blank" if @master.url %>
+					<th colspan="2">リンク</th><td colspan="2"><%= link_to @master.url,@master.url,target: "_blank" if @master.url.present? %>
 					<br/>
 					<br/>
 					<%
@@ -37,9 +37,9 @@
             m = image_tag "mixi.png",width: "24px"
             t = image_tag "twitter.png",width: "24px"
 %>
-					<%= link_to f, "https://www.facebook.com/"+@master.id_facebook,target: "_blank" if @master.id_facebook %>
-					<%= link_to m, "http://mixi.jp/show_friend.pl?id="+@master.id_mixi,target: "_blank" if @master.id_mixi %>
-					<%= link_to t, "https://twitter.com/"+@master.id_twitter,target: "_blank" if @master.id_twitter %> </td>
+					<%= link_to f, "https://www.facebook.com/"+@master.id_facebook,target: "_blank" if @master.id_facebook.present? %>
+					<%= link_to m, "http://mixi.jp/show_friend.pl?id="+@master.id_mixi,target: "_blank" if @master.id_mixi.present? %>
+					<%= link_to t, "https://twitter.com/"+@master.id_twitter,target: "_blank" if @master.id_twitter.present? %> </td>
 				</tr>
 			</tbody>
 		</table>
@@ -51,7 +51,7 @@
 				<% @master.events.order("opendate DESC").limit(5).each do |event| %>
 				<tr>
 					<td> <%= event.opendate.month %>/<%= event.opendate_short %></td><td> <%= event.opentime_short %></td>
-					<td>「<%= event.title %>」
+					<td>「<%= link_to event.title, event_path(event) %>」
 					<br/>
 					<%= event.short_desc %> </td>
 				</tr>

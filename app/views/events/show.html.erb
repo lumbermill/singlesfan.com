@@ -7,6 +7,7 @@
 <style>
 table.table th{
   text-align: right;
+  white-space: nowrap;
 }
 </style>
 
@@ -30,6 +31,12 @@ table.table th{
   <th>概要</th>
   <td><%= @event.short_desc %></td>
 </tr>
+<% if @event.long_desc.present? then %>
+<tr>
+  <th>詳細</th>
+  <td><%= @event.long_desc %></td>
+</tr>
+<% end %>
 <tr>
   <th>サブマスター</th>
   <td><%= Master.find(@event.submaster_id).name if @event.submaster_id %></td>
