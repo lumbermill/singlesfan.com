@@ -29,7 +29,7 @@
 					<th colspan="2">割ったお皿の数</th><td colspan="2"><%= @master.broken_dishes %></td>
 				</tr>
 				<tr>
-					<th colspan="2">リンク</th><td colspan="2"><%= link_to @master.url,@master.url,target: "_blank" %>
+					<th colspan="2">リンク</th><td colspan="2"><%= link_to @master.url,@master.url,target: "_blank" if @master.url %>
 					<br/>
 					<br/>
 					<%

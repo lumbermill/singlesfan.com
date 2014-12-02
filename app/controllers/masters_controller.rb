@@ -1,6 +1,6 @@
 class MastersController < ApplicationController
   before_action :set_master, only: [:show, :edit, :update, :destroy]
-  before_action :check_auth, except: [:reset, :reset_do, :show, :new, :new_do]
+  before_action :check_auth, except: [:reset, :reset_do, :show, :show_picture, :new, :new_do]
   
   PASSWORD_SRC = 'AaBbCcDdEeFfGgHhiJjKkLMmNnPpQrSsTtUuVvWwXxYyZz23456789'
 
