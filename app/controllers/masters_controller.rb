@@ -42,7 +42,7 @@ class MastersController < ApplicationController
     @master.email = master_params[:email]
     p = PASSWORD_SRC.split(//).shuffle[0,6].join 
     @master.password = p
-    @master.active = false
+    @master.active = true # コンファームが無いので、最初から有効にする
 
     respond_to do |format|
       if @master.save

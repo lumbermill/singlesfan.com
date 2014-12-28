@@ -27,7 +27,7 @@
     <%= f.label :master_name,"マスター" %>
     <%= text_field_tag 'master_name' ,@event.master_name, class: "form-control",list: "master_name_list" %>
     <datalist id="master_name_list">
-    	<% Master.all.each do |m| %>
+    	<% Master.active.each do |m| %>
     	<option value="<%= m.name %>" />
     	<% end %>
     </datalist>
