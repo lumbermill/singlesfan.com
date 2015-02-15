@@ -31,6 +31,7 @@
     	<option value="<%= m.name %>" />
     	<% end %>
     </datalist>
+    <small>右側の矢印からリストを表示して選択します。<br/>未登録の場合、名前をそのまま入力すれば新規追加されます。</small>
     <%# f.select :master_id, Master.active.collect {|b| [b.name, b.id] },{} , class: "form-control" %>
   </div>
   <div class="form-group">
@@ -55,7 +56,7 @@
     <%= f.text_field :title, class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :short_desc,"説明文(?文字以内)" %>
+    <%= f.label :short_desc,"説明文(できれば80文字以内)" %>
     <%= f.text_area :short_desc, class: "form-control", rows: "3" %>
   </div>
   <div class="form-group">
@@ -73,6 +74,7 @@
   <div class="form-group">
     <%= check_box_tag :tweet, 'true', @tweet %>
     <%= label_tag :tweet,"このシフトをツイートする" %>
+    <small>説明文が長いとツイートできないことがあります</small>
   </div>
   <div class="actions">
     <%= f.submit @submit_text, class: "btn btn-primary" %>
