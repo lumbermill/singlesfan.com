@@ -1,0 +1,29 @@
+<h1>説教バー申し込み一覧</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>名前</th>
+      <th>メールアドレス</th>
+      <th>希望日</th>
+      <th>追記事項</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @inquiries.each do |inquiry| %>
+      <tr>
+        <td><%= inquiry.name %></td>
+        <td><%= inquiry.email %></td>
+        <td><%= inquiry.date %></td>
+        <td><%= inquiry.memo %></td>
+        <td><%= link_to '閲覧', inquiry %></td>
+        <!--
+        <td><%= link_to 'Edit', edit_inquiry_path(inquiry) %></td>
+        <td><%= link_to 'Destroy', inquiry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>

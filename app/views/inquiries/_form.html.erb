@@ -1,0 +1,34 @@
+<%= form_for(@inquiry) do |f| %>
+  <% if @inquiry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@inquiry.errors.count, "error") %> prohibited this inquiry from being saved:</h2>
+
+      <ul>
+      <% @inquiry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form−group">
+    <%= f.label :name, "お名前" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form−group">
+    <%= f.label :email, "メールアドレス" %>
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
+  <div class="form−group">
+    <%= f.label :date, "受講希望日" %>
+    <%= f.date_field :date, class: "form-control" %>
+    <small>原則、毎月第二月曜日です。事前に営業スケジュールを確認してください。</small>
+  </div>
+  <div class="form−group">
+    <%= f.label :memo, "追加の連絡事項があれば" %>
+    <%= f.text_area :memo, class: "form-control" %>
+  </div>
+  <div class="form−group">
+    <%= f.submit "送信する",class: "btn btn-primary" %>
+  </div>
+<% end %>

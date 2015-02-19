@@ -11,7 +11,7 @@ img.cb-thumbnail{
 </style>
 <% @two_events.each_with_index do |one_events,i| %>
   <% if @two_dates then %>
-    <h3><%= @two_dates[i].year %>年<%= @two_dates[i].month %>月</h3> 
+    <h3><%= @two_dates[i].year %>年<%= @two_dates[i].month %>月</h3>
   <% end %>
   <table class="table table-striped">
   <tbody>
@@ -29,7 +29,7 @@ img.cb-thumbnail{
       	</td></tr>
   <%  else
         events.each do |event|
-          next if event == nil  
+          next if event == nil
   %>
     <tr>
       <td><img class="cb-thumbnail" src="/thumb/<%= event.picture_id %>" /></td>
@@ -39,14 +39,19 @@ img.cb-thumbnail{
         <span class="lead"><%= event.masters_name(true) %>「<%= event.title_(true) %>」</span>
       <p>
       <%= event.short_desc %>
-      <% if session[:master_id] then %> <%= link_to '編集', edit_event_path(event.id),class: "btn btn-default btn-xs" %><% end %>
+      <% if session[:master_id] then %>
+        <%= link_to '編集', edit_event_path(event.id),class: "btn btn-default btn-xs" %>
+        <% if events[2] == nil && (events[0] == nil || events[1] == nil) %>
+        <%= link_to '追加', new_event_path(d:event.opendate),class: "btn btn-default btn-xs" %>
+        <% end %>
+      <% end %>
       </p>
       <% if event.url then %>
         <p><small><a href="<%= event.url %>" target="_blank"><%= event.url %></a></small></p>
       <% end %>
     <!-- Posted at <%= event.updated_at %> -->
       </td>
-  <%  
+  <%
       end
     end
 %>

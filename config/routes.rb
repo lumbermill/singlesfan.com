@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :pictures
   resources :events
   resources :masters
+  resources :inquiries
 
   namespace :for_master do
     root 'pages#index'
@@ -14,8 +15,8 @@ Rails.application.routes.draw do
   get 'foodmenu' => 'pages#foodmenu'
   get 'access' => 'pages#access'
 
-  get 'pasts' => 'events#pasts'  
-  get 'plain' => 'events#plain'  
+  get 'pasts' => 'events#pasts'
+  get 'plain' => 'events#plain'
 
   # Manage masters
   get 'login' => 'sessions#new'  # why is it needed? , :as => 'login'
@@ -30,5 +31,5 @@ Rails.application.routes.draw do
   get 'img/:id' => 'pictures#show_image'
   get 'thumb/:id' => 'pictures#show_thumb'
   get 'imgs' => 'pictures#show_images'
-  
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201074153) do
+ActiveRecord::Schema.define(version: 20150219073844) do
 
   create_table "events", force: true do |t|
     t.date     "opendate"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20141201074153) do
     t.text     "long_desc"
     t.string   "url"
     t.integer  "submaster_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "inquiries", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.date     "date"
+    t.string   "memo"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
