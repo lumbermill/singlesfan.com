@@ -4,8 +4,13 @@ img.thumbnail{
   width: 128px;
 }
 </style>
-<p>個別に記載がない場合の営業時間は「19:30-23:00」です。</p>
-<p style="text-align: right"><a href="pasts?p=0" class="btn btn-default">開催済み</a></p>
+<p>個別に記載がない場合の営業時間は、
+<%= image_tag("sun.png",size: "16x16", title: "昼", style: "vertical-align: super") %>昼: 13:00-18:00
+<%= image_tag("moon.png",size: "16x16", title: "夜", style: "vertical-align: super") %>夜: 19:30-23:00 です。
+</p>
+<p style="text-align: right">
+  <%= link_to "マスター！", masters_path, class: "btn btn-default" %>
+  <a href="pasts?p=0" class="btn btn-default">開催済み</a>
+</p>
 
 <%= render 'index' %>
-

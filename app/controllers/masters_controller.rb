@@ -1,15 +1,15 @@
 class MastersController < ApplicationController
   before_action :set_master, only: [:show, :edit, :update, :destroy]
-  before_action :check_auth, except: [:reset, :reset_do, :show, :show_picture, :new, :new_do]
-  
+  before_action :check_auth, except: [:reset, :reset_do, :show, :show_picture, :new, :new_do, :index]
+
   PASSWORD_SRC = 'AaBbCcDdEeFfGgHhiJjKkLMmNnPpQrSsTtUuVvWwXxYyZz23456789'
 
-  def reset    
+  def reset
   end
 
   def reset_do
     m = Master.find_by(email: params[:email]);
-    if ! m 
+    if ! m
       render :reset, notice: 'メールアドレスが見つかりません。'
     end
   end
@@ -17,7 +17,16 @@ class MastersController < ApplicationController
   # GET /masters
   # GET /masters.json
   def index
-    @masters = Master.all
+    @masters = []
+    b = (Date.today - 3.months).to_s
+    e = Date.today.to_s
+    sql = "SELECT master_id,count(1) AS c FROM events WHERE opendate BETWEEN '#{b}' AND '#{e}' AND master_id != 1 GROUP BY master_id ORDER BY c DESC"
+    res = ActiveRecord::Base.connection.select(sql)
+    res.rows.each do |row|
+      m = Master.find(row[0])
+      es = m.events.where("opendate >= '#{e}'").order("opendate ASC").limit(1)
+      @masters << [m,row[1],(es[0] if es.length == 1)]
+    end
   end
 
   # GET /masters/1
@@ -40,7 +49,7 @@ class MastersController < ApplicationController
   def new_do
     @master = Master.find_by(name: master_params[:name]) || Master.new(master_params)
     @master.email = master_params[:email]
-    p = PASSWORD_SRC.split(//).shuffle[0,6].join 
+    p = PASSWORD_SRC.split(//).shuffle[0,6].join
     @master.password = p
     @master.active = true # コンファームが無いので、最初から有効にする
 

@@ -6,9 +6,11 @@ class SessionsController < ApplicationController
   def create
     m = Master.find_by_email(params[:email])
     p = params[:password]
-    
+
     if m && p != PASSWORD_NULL && m.authenticate(p)
       session[:master_id] = m.id
+      m.last_accessed_at = DateTime.now.to_s
+      m.save
       redirect_to for_master_root_path, :notice => "ログインしました。"
     else
       flash.now[:alert] = "名前またはパスワードが違います。"
