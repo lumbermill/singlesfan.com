@@ -32,4 +32,5 @@ Rails.application.routes.draw do
   get 'thumb/:id' => 'pictures#show_thumb'
   get 'imgs' => 'pictures#show_images'
 
+  get 'inquiries_fin' => 'inquiries#new_fin'
 end

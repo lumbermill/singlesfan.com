@@ -32,4 +32,23 @@ class Notifications < ActionMailer::Base
 
     mail to: master.email, subject: "パスワード再発行"
   end
+
+  # フォームを送信したユーザに返す
+  def confirm_application(inquiry)
+    @name = inquiry.name
+    @email = inquiry.email
+    @date = inquiry.date
+    @memo = inquiry.memo
+    mail to: inquiry.email, subject: "[自動送信]説教バー申込受付"
+  end
+
+  # 申込があったことを通知
+  def notify_application(inquiry)
+    @name = inquiry.name
+    @email = inquiry.email
+    @date = inquiry.date
+    @memo = inquiry.memo
+    # to singles.5th@gmail.com
+    mail to: "yousei.itou@gmail.com", subject: "説教バー申込受付"
+  end
 end

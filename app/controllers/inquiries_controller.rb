@@ -1,6 +1,6 @@
 class InquiriesController < ApplicationController
   before_action :set_inquiry, only: [:show, :edit, :update, :destroy]
-  before_action :check_auth, except: [:new, :create]
+  before_action :check_auth, except: [:new, :create, :new_fin]
 
   # GET /inquiries
   # GET /inquiries.json
@@ -29,13 +29,20 @@ class InquiriesController < ApplicationController
 
     respond_to do |format|
       if @inquiry.save
-        format.html { redirect_to @inquiry, notice: 'Inquiry was successfully created.' }
+        session[:inquiry_id] = @inquiry.id
+        Notifications.confirm_application(@inquiry).deliver
+        Notifications.notify_application(@inquiry).deliver
+        format.html { redirect_to inquiries_fin_path, notice: 'Inquiry was successfully created.' }
         format.json { render :show, status: :created, location: @inquiry }
       else
         format.html { render :new }
         format.json { render json: @inquiry.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def new_fin
+    @inquiry = Inquiry.find(session[:inquiry_id])
   end
 
   # PATCH/PUT /inquiries/1
