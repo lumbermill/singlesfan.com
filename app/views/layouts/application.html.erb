@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
   <meta name="description" content="<%= @meta_description ? @meta_description : "大阪梅田にある「日替わりのマスター」のバーを紹介するサイトです。" %>" />
   <meta name="keywords" content="大阪,梅田,バー,飲み会,イベント,コモンバー,シングルズ,COMMON BAR SINGLES,ファン" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
   body {
     padding-top: 50px;
@@ -60,7 +61,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <% toplink = session[:master_id] ? for_master_root_path : root_path %> 
+      <% toplink = session[:master_id] ? for_master_root_path : root_path %>
       <%= link_to 'Singles Fan!', toplink, :class => 'navbar-brand' %>
     </div>
     <div class="collapse navbar-collapse">
