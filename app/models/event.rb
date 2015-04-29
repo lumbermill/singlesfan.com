@@ -7,18 +7,23 @@ class Event < ActiveRecord::Base
   validates_presence_of :opentime
   validates_uniqueness_of :opentime, scope: [:opendate]
   validates_presence_of :master_id
- 
+
   scope :recents, lambda { where("opendate >= ?",Date.today.to_s).order("opendate, opentime") }
   scope :recents_by_created, lambda { order("created_at DESC") }
-  scope :monthly, lambda { |d| 
+  scope :monthly, lambda { |d|
     b = d.beginning_of_month
     e = d.end_of_month
     where("opendate between ? AND ?",b,e).order("opendate, opentime")
   }
   scope :pasts, lambda { |p|
-    PAGE_SIZE = 24
-    o = p * PAGE_SIZE
-    where("opendate < ?",Date.today.to_s).order("opendate DESC,opentime").offset(o).limit(PAGE_SIZE)
+    if p == nil
+      PAGE_SIZE = 8
+      where("opendate <= ?",Date.today.to_s).order("opendate DESC,opentime").limit(PAGE_SIZE)
+    else
+      PAGE_SIZE = 24
+      o = p * PAGE_SIZE
+      where("opendate < ?",Date.today.to_s).order("opendate DESC,opentime").offset(o).limit(PAGE_SIZE)
+    end
   }
 
   # for new form
@@ -42,7 +47,7 @@ class Event < ActiveRecord::Base
       i += ActionController::Base.helpers.image_tag("moon.png",size: "16x16", title: l)
     end
     h = i
-    
+
     return h.html_safe
   end
 

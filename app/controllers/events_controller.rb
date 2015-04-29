@@ -25,6 +25,7 @@ class EventsController < ApplicationController
   def pasts
     @title = '開催済み'
     @events = Event.pasts(params[:p])
+    @base = request.base_url
   end
 
 
@@ -112,13 +113,13 @@ class EventsController < ApplicationController
         c.access_token = ENV['TWITTER_ACCESS_TOKEN']
         c.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
       end
-      
+
       # 11月5日 Yosei「英語勉強中」:あいうえお。
       date = event.opendate.month.to_s+"/"+event.opendate_short+event.opentime_short(false)
       url = 'http://singlesfan.com/events/%d' % [event.id]
       tc.update date+' '+event.masters_name+'「'+event.title+'」:'+event.short_desc+' '+url
     end
-  
+
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
@@ -135,7 +136,7 @@ class EventsController < ApplicationController
       if !m
         # Add new master
         m = Master.create(name: n, email: n, password: PASSWORD_NULL);
-      end      
+      end
       return m
     end
 
@@ -177,7 +178,7 @@ class EventsController < ApplicationController
           txt += "「"+e.title+"」"
           txt += e.short_desc
         end
-        txt += "\n" 
+        txt += "\n"
       end
       return txt
     end
