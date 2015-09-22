@@ -47,6 +47,10 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+staging:
+  <<: *default
+  database: singlesfan_com_production
+
 production:
   <<: *default
   database: singlesfan_com_production
