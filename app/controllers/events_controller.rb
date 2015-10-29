@@ -117,7 +117,8 @@ class EventsController < ApplicationController
       # 11月5日 Yosei「英語勉強中」:あいうえお。
       date = event.opendate.month.to_s+"/"+event.opendate_short+event.opentime_short(false)
       url = 'http://singlesfan.com/events/%d' % [event.id]
-      tc.update date+' '+event.masters_name+'「'+event.title+'」:'+event.short_desc+' '+url
+      desc = event.short_desc.length <= 80 ? event.short_desc : ""
+      tc.update date+' '+event.masters_name+'「'+event.title+'」:'+desc+' '+url
     end
 
     # Use callbacks to share common setup or constraints between actions.
