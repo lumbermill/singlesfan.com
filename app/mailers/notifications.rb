@@ -49,6 +49,6 @@ class Notifications < ActionMailer::Base
     @date = inquiry.date
     @memo = inquiry.memo
     # to singles.5th@gmail.com
-    mail to: "yousei.itou@gmail.com", subject: "説教バー申込受付"
+    mail to: "singles.5th@gmail.com", subject: "説教バー申込受付"
   end
 end
