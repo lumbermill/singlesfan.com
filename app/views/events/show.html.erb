@@ -17,7 +17,9 @@ table.table th{
 <tr>
   <th>開催日</th>
   <td><%= @event.opendate %>
- <%= @event.opentime_short %></td>
+ <%= @event.opentime_short %><br/>
+ <small>個別に記載がない場合の営業時間は、昼: 13:00-18:00 夜: 19:30-23:00 です。</small>
+  </td>
 </tr>
 <tr>
   <th>マスター</th>
