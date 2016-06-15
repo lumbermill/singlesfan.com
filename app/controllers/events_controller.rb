@@ -118,7 +118,7 @@ class EventsController < ApplicationController
       date = event.opendate.month.to_s+"/"+event.opendate_short+event.opentime_short(false)
       url = 'http://singlesfan.com/events/%d' % [event.id]
       desc = event.short_desc.length <= 80 ? event.short_desc : ""
-      tc.update date+' '+event.masters_name+'「'+event.title+'」:'+desc+' '+url
+      tc.update date+"\n"+event.masters_name+"\n「"+event.title+"」\n"+desc+"\n"+url
     end
 
     # Use callbacks to share common setup or constraints between actions.
