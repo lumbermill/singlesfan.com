@@ -5,9 +5,8 @@
     <tr>
       <th></th>
       <th style="min-width: 160px">マスター名</th>
-      <th>自己紹介</th>
+      <th>自己紹介 / 次のシフト</th>
       <th>シフト申請数</th>
-      <th>次のシフト</th>
     </tr>
   </thead>
 
@@ -19,11 +18,15 @@
         e = m[2]
     %>
       <tr>
-        <td><% if master.picture %> <img src="/masters/<%= master.id %>/picture" class="img-rounded" style="max-width: 60px"/> <% else %> <img src="../master.png" class="img-rounded" style="max-width: 60px"/> <% end %></td>
-        <td><%= link_to master.name, master_path(master) %></td>
+        <td rowspan="2"><% if master.picture %> <img src="/masters/<%= master.id %>/picture" class="img-rounded" style="max-width: 60px"/> <% else %> <img src="../master.png" class="img-rounded" style="max-width: 60px"/> <% end %></td>
+        <td rowspan="2"><%= link_to master.name, master_path(master) %></td>
         <td><%= master.desc %></td>
-        <td><%= n %></td>
-        <td><%= (link_to e.title, event_path(e) if e) %></td>
+        <td rowspan="2"><%= n %></td>
+      </tr>
+      <tr>
+        <td>
+        <%= (link_to e.title, event_path(e) if e) %>
+        </td>
       </tr>
     <% end %>
   </tbody>

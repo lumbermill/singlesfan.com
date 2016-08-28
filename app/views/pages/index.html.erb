@@ -14,7 +14,7 @@
     <tbody>
     <tr>
       <th>マスター</th><td><%= event.masters_name(true) %></td><td rowspan="3">
-	    <img src="/img/<%= event.picture_id %>" class="img-rounded" style="max-width: 240px; float: right;"/>
+	    <img src="/img/<%= event.picture_id %>" class="img-rounded hidden-xs" style="max-width: 240px; float: right;"/>
     	</td>
     </tr>
     <tr>
@@ -43,7 +43,7 @@
   </div>
 </div>
 <div class="row">
-  <div>
+  <div class="col-sm-12">
     <hr/>
     <p><%= link_to '本日以降のスケジュール', events_path, class: "btn btn-default" %>
       <%= link_to '開催済みのスケジュール', pasts_path(:p => "0"), class: "btn btn-default" %>
