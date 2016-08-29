@@ -134,7 +134,7 @@ class EventsController < ApplicationController
     def master_by_name(n)
       Rails.logger.debug "New master: "+n
       m = Master.find_by(name: n)
-      if !m
+      if !m || m.name != n
         # Add new master
         m = Master.create(name: n, email: n, password: PASSWORD_NULL);
       end
