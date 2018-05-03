@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.10.2'
 
 set :application, 'singlesfan.com'
 set :repo_url, 'https://github.com/lumbermill/singlesfan.com.git'
@@ -32,17 +32,16 @@ set :repo_url, 'https://github.com/lumbermill/singlesfan.com.git'
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 2
 
 namespace :deploy do
+  after :publishing, :restart
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :sudo, 'service httpd restart'
     end
   end
-
 end
+
