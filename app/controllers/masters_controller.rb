@@ -21,7 +21,7 @@ class MastersController < ApplicationController
     b = (Date.today - 3.months).to_s
     e = Date.today.to_s
     sql = "SELECT master_id,count(1) AS c FROM events WHERE opendate BETWEEN '#{b}' AND '#{e}' AND master_id != 1 GROUP BY master_id ORDER BY c DESC"
-    res = ActiveRecord::Base.connection.select(sql)
+    res = ActiveRecord::Base.connection.select_all(sql)
     res.rows.each do |row|
       m = Master.find(row[0])
       es = m.events.where("opendate >= '#{e}'").order("opendate ASC").limit(1)
